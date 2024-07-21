@@ -1,13 +1,10 @@
-#########  Networking ##############
-# Step 1
-resource "aws_vpc" "webappvpc" {
+resource "aws_vpc" "myvpc" {
     cidr_block = "10.0.0.0/16"
     tags = {
-      "Name" = "dev-cluster"
+      "Name" = "myvpc"
     }
 }
 
-# Step 2
 resource "aws_internet_gateway" "myigw" {
   vpc_id = aws_vpc.webappvpc.id
   tags = {
@@ -15,7 +12,6 @@ resource "aws_internet_gateway" "myigw" {
   }
 }
  
-# Step 3
 resource "aws_subnet" "mysubnet" {
   vpc_id     = aws_vpc.webappvpc.id
   cidr_block = "10.0.0.0/24"
@@ -25,7 +21,6 @@ resource "aws_subnet" "mysubnet" {
   }
 }
 
-# Step 4
 resource "aws_route_table" "myrtb" {
 vpc_id = "${aws_vpc.webappvpc.id}"
  route {
@@ -37,8 +32,7 @@ vpc_id = "${aws_vpc.webappvpc.id}"
  }
 }
 
-# Step 5
-resource "aws_route_table_association" "myrtb" {
+resource "aws_route_table_association" "myrtba" {
  subnet_id = aws_subnet.mysubnet.id
  route_table_id = aws_route_table.myrtb.id
 }

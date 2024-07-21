@@ -1,5 +1,4 @@
 ########### Security ################
-# Step 1
 resource "aws_security_group" "mysg" {
   name        = "mysg"
   description = "Allow all traffic"
